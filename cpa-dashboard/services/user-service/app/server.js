@@ -22,12 +22,16 @@ const initializeDatabase = async () => {
     logger.info(LOG_DATABASE.INITIALIZE_DATABASE);
 
     const connectionResult = await testConnection();
+    console.log(connectionResult)
     if (!connectionResult.success) {
       throw new Error(LOG_DATABASE.CONNECTION_FAILED);
     }
 
     await sequelize.authenticate();
     logger.info(LOG_DATABASE.CONNECTED_TO_DATABASE);
+
+     await sequelize.sync();
+    logger.info("Syncronised");
 
     return true;
   } catch (error) {

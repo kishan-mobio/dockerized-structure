@@ -10,8 +10,8 @@ import {
 } from "./utils/constants.util.js";
 import { errorResponse } from "./utils/response.util.js";
 import logger from "../config/logger.config.js";
-import { STATUS_CODE_INTERNAL_SERVER_ERROR } from "../../sikka/app/utils/status_code.util.js";
-import { STATUS_CODE_NOT_FOUND } from "./utils/status_code.util.js";
+import { STATUS_CODE_NOT_FOUND, STATUS_CODE_INTERNAL_SERVER_STATUS,
+ } from "./utils/status_code.util.js";
 
 const app = express();
 
@@ -26,14 +26,20 @@ const initializeDatabase = async () => {
     logger.info(LOG_DATABASE.INITIALIZE_DATABASE);
 
     const connectionResult = await testConnection();
+    console.log(connectionResult);
     if (!connectionResult.success) {
       throw new Error(LOG_DATABASE.CONNECTION_FAILED);
     }
 
     await sequelize.authenticate();
     logger.info(LOG_DATABASE.CONNECTED_TO_DATABASE);
+
+    await sequelize.sync();
+    logger.info("Syncronised");
+
     return true;
   } catch (error) {
+    console.log(error);
     logger.error(LOG_DATABASE.DATABASE_ERROR, error.message);
     return false;
   }
@@ -54,7 +60,7 @@ app.use(SERVER_CONSTANTS.CATCH_ALL_ROUTE, (req, res) => {
 app.use((error, req, res) => {
   logger.error(SERVER_MESSAGES.UNHANDLED_ERROR, error);
   res
-    .status(STATUS_CODE_INTERNAL_SERVER_ERROR)
+    .status(STATUS_CODE_INTERNAL_SERVER_STATUS)
     .json(errorResponse(SERVER_MESSAGES.INTERNAL_SERVER_ERROR));
 });
 
