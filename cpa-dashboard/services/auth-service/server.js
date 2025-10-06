@@ -183,7 +183,6 @@ const initializeDatabase = async () => {
     logger.info("Initializing database connection for", { service: SERVICE_NAME });
 
     const connectionResult = await testConnection();
-    console.log(connectionResult);
     if (!connectionResult.success) {
       throw new Error(SERVER_ERROR_MESSAGES.DATABASE_CONNECTION_FAILED);
     }
@@ -193,7 +192,6 @@ const initializeDatabase = async () => {
     logger.info("Database connection established successfully for", { service: SERVICE_NAME });
     return true;
   } catch (error) {
-    console.log(error);
     logger.error(
       `Database initialization error for ${SERVICE_NAME}:`,
       error.message
