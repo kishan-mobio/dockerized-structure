@@ -171,6 +171,7 @@ const initializeDatabase = async () => {
     logger.info(QUICKBOOKS_SYSTEM_LOGS.DATABASE_INITIALIZING, { service: SERVICE_NAME });
     
     const connectionResult = await testConnection();
+    console.log('connectionResult', connectionResult);
     if (!connectionResult.success) {
       throw new Error(QUICKBOOKS_ERROR_MESSAGES.DATABASE_CONNECTION_FAILED);
     }

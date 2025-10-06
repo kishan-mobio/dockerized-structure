@@ -29,7 +29,7 @@ const QB_CONFIG = {
   clientID: process.env.QUICKBOOKS_CLIENT_ID,
   clientSecret: process.env.QUICKBOOKS_CLIENT_SECRET,
   tokenUrl: process.env.QUICKBOOKS_TOKEN_URL,
-  redirectUri: process.env.REDIRECT_URI,
+  redirectUri: process.env.QUICKBOOKS_REDIRECT_URI,
 };
 
 // Validation helper for environment variables

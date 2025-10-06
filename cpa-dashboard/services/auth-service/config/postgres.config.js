@@ -1,5 +1,3 @@
-
-// config/postgres.config.js
 import { Sequelize } from 'sequelize';
 import { createLogger } from '../app/utils/logger.utils.js';
 import { getDatabaseConfig } from './shared.config.js';
